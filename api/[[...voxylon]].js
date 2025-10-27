@@ -10,7 +10,8 @@ module.exports = (req, res) => {
   const originalUrl = req.url || '';
 
   if (!originalUrl.startsWith('/api')) {
-    const restoredUrl = `/api${originalUrl}`;
+    const needsLeadingSlash = originalUrl.startsWith('/') ? '' : '/';
+    const restoredUrl = `/api${needsLeadingSlash}${originalUrl}`;
     req.url = restoredUrl;
     req.originalUrl = restoredUrl;
   }
