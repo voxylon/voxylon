@@ -406,12 +406,9 @@ function Register() {
       const accounts = await activeDetail.provider.request({ method: 'eth_accounts' });
       const currentAccount = accounts[0];
       
-      // Convert message to hex for personal_sign (required by EIP-1193)
-      const messageHex = ethersUtils.hexlify(ethersUtils.toUtf8Bytes(message));
-      
       const signature = await activeDetail.provider.request({
         method: 'personal_sign',
-        params: [messageHex, currentAccount]
+        params: [message, currentAccount]
       });
       
       setPendingSignature(signature);

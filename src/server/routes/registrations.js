@@ -70,11 +70,8 @@ router.get('/:address', lookupLimiter, async (req, res) => {
       isValid
     });
   } catch (error) {
-    if (error.message === 'Invalid Ethereum address.') {
-      return res.status(400).json({ message: 'Invalid Ethereum address.' });
-    }
     console.error('Failed to get registration', error);
-    return res.status(500).json({ message: 'Failed to retrieve registration.' });
+    return res.status(400).json({ message: 'Invalid Ethereum address.' });
   }
 });
 
