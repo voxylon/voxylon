@@ -813,9 +813,19 @@ function Register() {
                     }}
                   >
                     <div>
-                      <label htmlFor="validatorKey" className="text-sm font-medium text-slate-200">
-                        Validator public key
-                      </label>
+                      <div className="flex items-center justify-between gap-3">
+                        <label htmlFor="validatorKey" className="text-sm font-medium text-slate-200">
+                          Validator public key
+                        </label>
+                        <a
+                          href="https://keygen.voxylon.net/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center rounded-full border border-white/20 px-4 py-1.5 text-xs font-medium text-white/80 transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-voxylon-purple/60"
+                        >
+                          Get Key
+                        </a>
+                      </div>
                       <input
                         id="validatorKey"
                         name="validatorKey"
