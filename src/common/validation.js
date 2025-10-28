@@ -8,6 +8,8 @@ const SIGNATURE_PATTERN = /^0x[a-fA-F0-9]{130}$/;
 
 const normalizeAddress = (address) => ethersUtils.getAddress(address);
 
+const normalizeValidatorKey = (validatorKey) => validatorKey.toLowerCase();
+
 const isDeadlinePassed = () => Date.now() > REGISTRATION_DEADLINE.getTime();
 
 const buildRegistrationMessage = (validatorKey) => `Register Validator: ${validatorKey}`;
@@ -33,5 +35,6 @@ module.exports = {
   isValidSignatureFormat,
   isValidValidatorKey,
   normalizeAddress,
+  normalizeValidatorKey,
   verifySignature
 };

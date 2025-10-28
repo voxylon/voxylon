@@ -7,6 +7,7 @@ const {
   isValidSignatureFormat,
   isValidValidatorKey,
   normalizeAddress,
+  normalizeValidatorKey,
   verifySignature
 } = require('../../common/validation');
 
@@ -31,8 +32,10 @@ router.get('/validator-keys/:validatorKey', async (req, res) => {
     });
   }
 
+  const normalizedValidatorKey = normalizeValidatorKey(validatorKey);
+
   try {
-    const record = await db.findByValidatorKey(validatorKey);
+    const record = await db.findByValidatorKey(normalizedValidatorKey);
 
     if (!record) {
       return res.status(404).json({ message: 'Validator key not registered.' });
@@ -89,8 +92,9 @@ router.post('/', async (req, res) => {
 
   try {
     const normalizedAddress = normalizeAddress(address);
+    const normalizedValidatorKey = normalizeValidatorKey(validatorKey);
 
-    if (!isValidValidatorKey(validatorKey)) {
+    if (!isValidValidatorKey(normalizedValidatorKey)) {
       return res.status(400).json({
         message: 'Validator public key must be 0x-prefixed and 96 hexadecimal characters long.'
       });
@@ -102,7 +106,7 @@ router.post('/', async (req, res) => {
       });
     }
 
-    const isSignatureValid = verifySignature(normalizedAddress, validatorKey, signature);
+    const isSignatureValid = verifySignature(normalizedAddress, normalizedValidatorKey, signature);
     if (!isSignatureValid) {
       return res.status(400).json({
         message: 'Signature is invalid for the supplied account and validator key.'
@@ -116,14 +120,14 @@ router.post('/', async (req, res) => {
       });
     }
 
-    const existingForKey = await db.findByValidatorKey(validatorKey);
+    const existingForKey = await db.findByValidatorKey(normalizedValidatorKey);
     if (existingForKey) {
       return res.status(409).json({
         message: 'Validator public key has already been registered by another account.'
       });
     }
 
-    const stored = await db.insertRegistration(normalizedAddress, validatorKey, signature);
+    const stored = await db.insertRegistration(normalizedAddress, normalizedValidatorKey, signature);
 
     return res.status(201).json({
       address: stored.address,

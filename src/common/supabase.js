@@ -52,13 +52,13 @@ const db = {
   },
 
   /**
-   * Find registration by validator key (case-insensitive)
+   * Find registration by validator key
    */
   async findByValidatorKey(validatorKey) {
     const { data, error } = await supabase
       .from('registrations')
       .select('address, validator_key')
-      .ilike('validator_key', validatorKey)
+      .eq('validator_key', validatorKey)
       .single();
     
     if (error && error.code !== 'PGRST116') {
