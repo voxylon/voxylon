@@ -2,8 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { utils as ethersUtils } from 'ethers';
 
-const DEADLINE_ISO = '2025-12-31T23:59:59Z';
-const DEADLINE = new Date(DEADLINE_ISO);
+const REGISTRATION_DEADLINE_ISO = '2025-12-31T23:59:59Z';
+const DEADLINE = new Date(REGISTRATION_DEADLINE_ISO);
 const DEADLINE_DATE = DEADLINE.toLocaleDateString('en-GB', {
   day: '2-digit',
   month: 'short',
@@ -93,7 +93,20 @@ const initialStatus = {
   message: 'Waiting for wallet providers…'
 };
 
-const validatorKeyPattern = /^0x[a-fA-F0-9]{96}$/;
+const VALIDATOR_KEY_PATTERN = /^0x[a-fA-F0-9]{96}$/;
+
+const ERROR_MESSAGES = {
+  ALREADY_REGISTERED: 'Registration already exists for this account.',
+  CONNECT_WALLET: 'Connect a wallet first.',
+  INVALID_VALIDATOR_KEY: 'Validator public key must be 0x-prefixed with 96 hex characters.',
+  DEADLINE_PASSED: 'Registration deadline has passed.',
+  VALIDATOR_KEY_TAKEN: 'Validator key already registered by another account.',
+  SIGNATURE_REJECTED: 'Signature request was rejected.',
+  SIGNATURE_REQUIRED: 'Sign the validator key before submitting.',
+  SIGNATURE_INVALID: 'Signature validation failed.',
+  REGISTRATION_FAILED: 'Registration failed.',
+  COPY_FAILED: 'Unable to copy to clipboard.'
+};
 
 const normalizeAddress = (address) => {
   if (!address) return '';
@@ -122,6 +135,7 @@ function Register() {
   const [isSignatureValid, setIsSignatureValid] = useState(false);
   const [copyToast, setCopyToast] = useState('');
   const [registrationCount, setRegistrationCount] = useState(0);
+  const [isLoadingCount, setIsLoadingCount] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -205,6 +219,7 @@ function Register() {
 
   const fetchRegistrationCount = useCallback(async () => {
     try {
+      setIsLoadingCount(true);
       const response = await fetch('/api/registrations');
       if (!response.ok) {
         throw new Error('Unable to fetch registration count');
@@ -213,6 +228,8 @@ function Register() {
       setRegistrationCount(typeof data.total === 'number' ? data.total : 0);
     } catch (error) {
       console.error('Failed to fetch registration count', error);
+    } finally {
+      setIsLoadingCount(false);
     }
   }, []);
 
@@ -343,21 +360,21 @@ function Register() {
   const handleSign = async () => {
     resetMessages();
     if (registration) {
-      setErrorMessage('Registration already exists for this account.');
+      setErrorMessage(ERROR_MESSAGES.ALREADY_REGISTERED);
       return;
     }
     if (!activeDetail || !connectedAddress) {
-      setErrorMessage('Connect a wallet first.');
+      setErrorMessage(ERROR_MESSAGES.CONNECT_WALLET);
       return;
     }
 
-    if (!validatorKeyPattern.test(validatorKey)) {
-      setErrorMessage('Validator public key must be 0x-prefixed with 96 hex characters.');
+    if (!VALIDATOR_KEY_PATTERN.test(validatorKey)) {
+      setErrorMessage(ERROR_MESSAGES.INVALID_VALIDATOR_KEY);
       return;
     }
 
     if (countdown.expired) {
-      setErrorMessage('Registration deadline has passed.');
+      setErrorMessage(ERROR_MESSAGES.DEADLINE_PASSED);
       return;
     }
 
@@ -372,7 +389,7 @@ function Register() {
       );
 
       if (availabilityResponse.ok) {
-        setErrorMessage('Validator key already registered by another account.');
+        setErrorMessage(ERROR_MESSAGES.VALIDATOR_KEY_TAKEN);
         return;
       }
 
@@ -399,7 +416,7 @@ function Register() {
       setConfirmationOpen(true);
     } catch (error) {
       console.error('Signature failed', error);
-      setErrorMessage(error.message || 'Signature request was rejected.');
+      setErrorMessage(error.message || ERROR_MESSAGES.SIGNATURE_REJECTED);
     } finally {
       setIsSigning(false);
     }
@@ -408,32 +425,32 @@ function Register() {
   const handleSubmit = async () => {
     resetMessages();
     if (!activeDetail || !connectedAddress) {
-      setErrorMessage('Connect a wallet first.');
+      setErrorMessage(ERROR_MESSAGES.CONNECT_WALLET);
       return;
     }
 
     if (registration) {
-      setErrorMessage('Registration already exists for this account.');
+      setErrorMessage(ERROR_MESSAGES.ALREADY_REGISTERED);
       return;
     }
 
-    if (!validatorKeyPattern.test(validatorKey)) {
-      setErrorMessage('Validator public key must be 0x-prefixed with 96 hex characters.');
+    if (!VALIDATOR_KEY_PATTERN.test(validatorKey)) {
+      setErrorMessage(ERROR_MESSAGES.INVALID_VALIDATOR_KEY);
       return;
     }
 
     if (!pendingSignature) {
-      setErrorMessage('Sign the validator key before submitting.');
+      setErrorMessage(ERROR_MESSAGES.SIGNATURE_REQUIRED);
       return;
     }
 
     if (!isSignatureValid) {
-      setErrorMessage('Signature validation failed.');
+      setErrorMessage(ERROR_MESSAGES.SIGNATURE_INVALID);
       return;
     }
 
     if (countdown.expired) {
-      setErrorMessage('Registration deadline has passed.');
+      setErrorMessage(ERROR_MESSAGES.DEADLINE_PASSED);
       return;
     }
 
@@ -455,7 +472,7 @@ function Register() {
 
       if (!response.ok) {
         const data = await response.json().catch(() => ({}));
-        throw new Error(data.message || 'Registration failed.');
+        throw new Error(data.message || ERROR_MESSAGES.REGISTRATION_FAILED);
       }
 
       const result = await response.json();
@@ -466,7 +483,7 @@ function Register() {
       handleDismissConfirmation();
     } catch (error) {
       console.error('Registration failed', error);
-      setErrorMessage(error.message || 'Registration failed.');
+      setErrorMessage(error.message || ERROR_MESSAGES.REGISTRATION_FAILED);
       handleDismissConfirmation();
     } finally {
       setIsSubmitting(false);
@@ -517,7 +534,7 @@ function Register() {
       setCopyToast(`${label} copied to clipboard`);
     } catch (error) {
       console.error('Copy failed', error);
-      setErrorMessage('Unable to copy to clipboard.');
+      setErrorMessage(ERROR_MESSAGES.COPY_FAILED);
     }
   };
 
@@ -627,7 +644,9 @@ function Register() {
               )}
               <div className="mt-8 rounded-2xl border border-white/10 bg-slate-950/75 p-5 text-center shadow-inner">
                 <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Registrations submitted</p>
-                <p className="mt-2 text-3xl font-semibold text-white">{registrationCount.toLocaleString()}</p>
+                <p className="mt-2 text-3xl font-semibold text-white">
+                  {isLoadingCount ? '...' : registrationCount.toLocaleString()}
+                </p>
               </div>
             </div>
           </motion.div>
