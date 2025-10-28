@@ -19,6 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "@supabase/supabase-js": "^2.76.1",
+    "@vercel/og": "^0.8.5",
     "dotenv": "^16.4.5",
     "ethers": "^5.7.2",
     "express": "^4.19.2",
