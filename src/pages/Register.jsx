@@ -365,9 +365,7 @@ function Register() {
       );
 
       if (availabilityResponse.ok) {
-        const data = await availabilityResponse.json().catch(() => ({}));
-        const owner = typeof data.address === 'string' ? formatAddress(data.address) : 'another account';
-        setErrorMessage(`Validator key already registered by ${owner}.`);
+        setErrorMessage('Validator key already registered by another account.');
         return;
       }
 

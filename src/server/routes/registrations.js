@@ -42,8 +42,8 @@ router.get('/validator-keys/:validatorKey', async (req, res) => {
     }
 
     return res.json({
-      address: record.address,
-      validatorKey: record.validator_key
+      registered: true,
+      message: 'Validator key is already registered.'
     });
   } catch (error) {
     console.error('Failed to lookup validator key', error);
