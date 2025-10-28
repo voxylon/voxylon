@@ -95,7 +95,14 @@ const initialStatus = {
 
 const validatorKeyPattern = /^0x[a-fA-F0-9]{96}$/;
 
-const normalizeAddress = (address) => address?.toLowerCase() ?? '';
+const normalizeAddress = (address) => {
+  if (!address) return '';
+  try {
+    return ethersUtils.getAddress(address);
+  } catch {
+    return address;
+  }
+};
 
 function Register() {
   const [status, setStatus] = useState(initialStatus);
