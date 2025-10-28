@@ -10,10 +10,11 @@ const {
   normalizeValidatorKey,
   verifySignature
 } = require('../../common/validation');
+const { lookupLimiter, registrationLimiter } = require('../middleware/rateLimiter');
 
 const router = express.Router();
 
-router.get('/', async (_req, res) => {
+router.get('/', lookupLimiter, async (_req, res) => {
   try {
     const total = await db.getTotalCount();
     return res.json({ total });
@@ -23,7 +24,7 @@ router.get('/', async (_req, res) => {
   }
 });
 
-router.get('/validator-keys/:validatorKey', async (req, res) => {
+router.get('/validator-keys/:validatorKey', lookupLimiter, async (req, res) => {
   const { validatorKey } = req.params;
 
   if (!isValidValidatorKey(validatorKey)) {
@@ -51,7 +52,7 @@ router.get('/validator-keys/:validatorKey', async (req, res) => {
   }
 });
 
-router.get('/:address', async (req, res) => {
+router.get('/:address', lookupLimiter, async (req, res) => {
   try {
     const address = normalizeAddress(req.params.address);
     const record = await db.findByAddress(address);
@@ -77,7 +78,7 @@ router.get('/:address', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', registrationLimiter, async (req, res) => {
   if (isDeadlinePassed()) {
     return res.status(400).json({
       message: `Registration closed on ${REGISTRATION_DEADLINE_ISO}.`
