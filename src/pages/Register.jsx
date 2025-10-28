@@ -379,18 +379,10 @@ function Register() {
       }
 
       const message = buildRegistrationMessage(validatorKey);
-      let signature;
-      try {
-        signature = await activeDetail.provider.request({
-          method: 'personal_sign',
-          params: [message, connectedAddress]
-        });
-      } catch (primaryError) {
-        signature = await activeDetail.provider.request({
-          method: 'personal_sign',
-          params: [connectedAddress, message]
-        });
-      }
+      const signature = await activeDetail.provider.request({
+        method: 'personal_sign',
+        params: [message, connectedAddress]
+      });
       setPendingSignature(signature);
       try {
         const recovered = ethersUtils.verifyMessage(message, signature);
