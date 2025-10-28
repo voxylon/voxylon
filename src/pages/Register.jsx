@@ -36,8 +36,6 @@ const panelVariants = {
   })
 };
 
-const buildRegistrationMessage = (validatorKey) => `Register Validator: ${validatorKey}`;
-
 const formatCountdown = (diffMs) => {
   if (diffMs <= 0) {
     return {
@@ -94,6 +92,8 @@ const initialStatus = {
 };
 
 const VALIDATOR_KEY_PATTERN = /^0x[a-fA-F0-9]{96}$/;
+
+const buildRegistrationMessage = (validatorKey) => `Register Validator: ${validatorKey}`;
 
 const ERROR_MESSAGES = {
   ALREADY_REGISTERED: 'Registration already exists for this account.',
