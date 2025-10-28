@@ -7,13 +7,7 @@ const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABAS
 if (!supabaseUrl || !supabaseKey) {
   const errorMessage = 'Missing Supabase configuration. Please set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY environment variables.';
   console.error('ERROR:', errorMessage);
-  
-  // On Vercel, don't exit - just throw on first use
-  if (process.env.VERCEL) {
-    throw new Error(errorMessage);
-  } else {
-    process.exit(1);
-  }
+  throw new Error(errorMessage);
 }
 
 // Create Supabase client
