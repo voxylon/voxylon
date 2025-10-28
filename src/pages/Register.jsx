@@ -401,10 +401,19 @@ function Register() {
       }
 
       const message = buildRegistrationMessage(validatorKey);
+      
+      // Get fresh account list to ensure we have the exact address format the wallet expects
+      const accounts = await activeDetail.provider.request({ method: 'eth_accounts' });
+      const currentAccount = accounts[0];
+      
+      // Convert message to hex for personal_sign (required by EIP-1193)
+      const messageHex = ethersUtils.hexlify(ethersUtils.toUtf8Bytes(message));
+      
       const signature = await activeDetail.provider.request({
         method: 'personal_sign',
-        params: [message, connectedAddress]
+        params: [messageHex, currentAccount]
       });
+      
       setPendingSignature(signature);
       try {
         const recovered = ethersUtils.verifyMessage(message, signature);
@@ -415,7 +424,7 @@ function Register() {
       }
       setConfirmationOpen(true);
     } catch (error) {
-      console.error('Signature failed', error);
+      console.error('Signature request failed:', error);
       setErrorMessage(error.message || ERROR_MESSAGES.SIGNATURE_REJECTED);
     } finally {
       setIsSigning(false);
