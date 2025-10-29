@@ -299,7 +299,7 @@
                     <div class="output-value" id="seedPhrase"></div>
                 </div>
                 <div class="button-group">
-                    <button class="btn-secondary" onclick="copySeed()">Copy Seed Phrase</button>
+                    <button class="btn-secondary" onclick="copySeed(event)">Copy Seed Phrase</button>
                 </div>
             </div>
             
@@ -309,7 +309,7 @@
                     <div class="output-value" id="validatorPublicKey"></div>
                 </div>
                 <div class="button-group">
-                    <button class="btn-secondary" onclick="copyValidatorKey()">Copy Public Key</button>
+                    <button class="btn-secondary" onclick="copyValidatorKey(event)">Copy Public Key</button>
                 </div>
             </div>
         </div>
@@ -449,7 +449,7 @@
         };
         
         // Copy functions
-        async function copySeed() {
+        async function copySeed(event) {
             const mnemonic = document.getElementById('seedPhrase').textContent;
             if (!mnemonic) {
                 alert('No seed phrase to copy');
@@ -471,7 +471,7 @@
             }
         }
         
-        async function copyValidatorKey() {
+        async function copyValidatorKey(event) {
             const pubKey = document.getElementById('validatorPublicKey').textContent;
             if (!pubKey) {
                 alert('No validator public key to copy');
