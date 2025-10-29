@@ -840,7 +840,7 @@ function Register() {
                           Validator public key
                         </label>
                         <a
-                          href="https://keygen.voxylon.net/"
+                          href="/keygen.html"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center justify-center rounded-full border border-white/20 px-4 py-1.5 text-xs font-medium text-white/80 transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-voxylon-purple/60"

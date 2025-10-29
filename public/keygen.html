@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validator Key Generator - Voxylon</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            color-scheme: dark;
+        }
+        
+        body {
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #050816;
+            color: #f1f5f9;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        body::after {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 600px;
+            height: 600px;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle at center, rgba(31, 116, 255, 0.2), transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .container {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+            backdrop-filter: blur(24px);
+            max-width: 56rem;
+            width: 100%;
+            padding: 3rem;
+            box-shadow: 
+                0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .header {
+            margin-bottom: 2rem;
+        }
+        
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, #1f74ff 0%, #7a3cff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            color: #cbd5e1;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        .warning {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(251, 191, 36, 0.15) 100%);
+            border-left: 4px solid rgba(251, 191, 36, 0.4);
+            border-radius: 0.75rem;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 2rem;
+            color: #fef3c7;
+            font-size: 0.875rem;
+            line-height: 1.625;
+        }
+        
+        .warning strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9375rem;
+            font-weight: 600;
+        }
+        
+        .card {
+            background: rgba(2, 6, 23, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.75rem;
+            color: #e2e8f0;
+            font-weight: 600;
+            font-size: 0.875rem;
+            letter-spacing: 0.025em;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            background: rgba(15, 23, 42, 0.6);
+            color: #f1f5f9;
+            transition: all 0.2s;
+        }
+        
+        input::placeholder, textarea::placeholder {
+            color: #64748b;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #1f74ff;
+            box-shadow: 0 0 0 1px rgba(31, 116, 255, 0.7);
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 5.5rem;
+            line-height: 1.6;
+        }
+        
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #1f74ff 0%, #7a3cff 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 18px 40px rgba(122, 60, 255, 0.35);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+            box-shadow: none;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-secondary.copied {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-color: transparent;
+            color: white;
+        }
+        
+        .info {
+            background: linear-gradient(135deg, rgba(31, 116, 255, 0.1) 0%, rgba(122, 60, 255, 0.1) 100%);
+            border-left: 4px solid rgba(31, 116, 255, 0.4);
+            border-radius: 0.5rem;
+            padding: 0.875rem 1rem;
+            margin-top: 0.75rem;
+            font-size: 0.8125rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+        
+        .output {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-top: 0.75rem;
+        }
+        
+        .output-label {
+            font-weight: 600;
+            color: #cbd5e1;
+            margin-bottom: 0.75rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .output-value {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.8125rem;
+            color: #f1f5f9;
+            line-height: 1.8;
+            word-break: break-all;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .container {
+                padding: 2rem 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.875rem;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Validator Key Generator</h1>
+            <div class="subtitle">Generate your BLS12-381 validator keys using EIP-2334 deterministic derivation</div>
+        </div>
+        
+        <div class="warning">
+            <strong>⚠️ Security Warning - Run This Page Offline</strong>
+            This page is designed to be saved and run offline for maximum security. Download this page using "Save Page As... → Webpage, Complete" and open it on an air-gapped computer disconnected from the internet. While it loads cryptographic libraries from CDN initially, saving the complete page allows you to generate keys offline without any network connection. Never share your seed phrase or private keys with anyone.
+        </div>
+        
+        <div class="info" style="margin-bottom: 2rem;">
+            Click the button below to generate a new 12-word seed phrase and validator public key. The derivation path used is: <code>m/12381/3600/0/0/0</code>
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+            <button onclick="generateKeys()" style="width: 100%;">Generate New Validator Keys</button>
+        </div>
+        
+        <div id="results" class="hidden">
+            <div class="card">
+                <div class="output-label">Seed Phrase (12 words)</div>
+                <div class="output">
+                    <div class="output-value" id="seedPhrase"></div>
+                </div>
+                <div class="button-group">
+                    <button class="btn-secondary" onclick="copySeed()">Copy Seed Phrase</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="output-label">Validator Public Key</div>
+                <div class="output">
+                    <div class="output-value" id="validatorPublicKey"></div>
+                </div>
+                <div class="button-group">
+                    <button class="btn-secondary" onclick="copyValidatorKey()">Copy Public Key</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import * as bip39 from 'https://esm.sh/@scure/bip39@1.2.1';
+        import { wordlist as englishWordlist } from 'https://esm.sh/@scure/bip39@1.2.1/wordlists/english';
+        import * as nobleCurves from 'https://esm.sh/@noble/curves@1.3.0/bls12-381';
+        import { hmac } from 'https://esm.sh/@noble/hashes@1.3.3/hmac';
+        import { sha256 } from 'https://esm.sh/@noble/hashes@1.3.3/sha256';
+        
+        // Make libraries available globally
+        window.bip39Module = bip39;
+        window.wordlist = englishWordlist;
+        window.bls = nobleCurves.bls12_381;
+        window.hmac_sha256 = (key, data) => hmac(sha256, key, data);
+        
+        // Signal that libraries are loaded
+        window.librariesLoaded = true;
+        window.dispatchEvent(new Event('librariesReady'));
+    </script>
+    
+    <script>
+        // Wait for libraries to load
+        let librariesReady = false;
+        window.addEventListener('librariesReady', () => {
+            librariesReady = true;
+        });
+        
+        // EIP-2334 key derivation
+        async function deriveChildKey(parentKey, index) {
+            const indexBytes = new Uint8Array(4);
+            new DataView(indexBytes.buffer).setUint32(0, index, false);
+            
+            const salt = new Uint8Array([...indexBytes, ...parentKey]);
+            const ikm = new Uint8Array(1);
+            
+            let sk = 0n;
+            let salt_iter = salt;
+            
+            for (let i = 0; i < 255; i++) {
+                const data = new Uint8Array([...salt_iter, 0]);
+                const hash = window.hmac_sha256(ikm, data);
+                sk = BigInt('0x' + Array.from(hash).map(b => b.toString(16).padStart(2, '0')).join(''));
+                
+                const r = 52435875175126190479447740508185965837690552500527637822603658699938581184513n;
+                if (sk < r && sk !== 0n) {
+                    return sk % r;
+                }
+                
+                salt_iter = new Uint8Array([...salt_iter, i]);
+            }
+            
+            throw new Error('Failed to derive child key');
+        }
+        
+        async function deriveMasterKey(seed) {
+            const ikm = seed;
+            const salt = new TextEncoder().encode('BLS-SIG-KEYGEN-SALT-');
+            
+            let sk = 0n;
+            let salt_iter = salt;
+            
+            for (let i = 0; i < 255; i++) {
+                const data = new Uint8Array([...salt_iter, 0, 48]);
+                const hash = window.hmac_sha256(ikm, data);
+                sk = BigInt('0x' + Array.from(hash).map(b => b.toString(16).padStart(2, '0')).join(''));
+                
+                const r = 52435875175126190479447740508185965837690552500527637822603658699938581184513n;
+                if (sk < r && sk !== 0n) {
+                    return sk % r;
+                }
+                
+                salt_iter = new Uint8Array([...salt_iter, i]);
+            }
+            
+            throw new Error('Failed to derive master key');
+        }
+        
+        function bigIntToBytes(num, length = 32) {
+            const hex = num.toString(16).padStart(length * 2, '0');
+            const bytes = new Uint8Array(length);
+            for (let i = 0; i < length; i++) {
+                bytes[i] = parseInt(hex.substr(i * 2, 2), 16);
+            }
+            return bytes;
+        }
+        
+        function bytesToHex(bytes) {
+            return '0x' + Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+        
+        // Main key generation function - generates new seed and derives keys
+        window.generateKeys = async function() {
+            if (!librariesReady) {
+                alert('Cryptographic libraries are still loading. Please wait a moment and try again.');
+                return;
+            }
+            
+            if (!window.bip39Module || !window.wordlist) {
+                alert('Libraries still loading, please wait...');
+                return;
+            }
+            
+            try {
+                // Generate new 12-word mnemonic
+                const strength = 128; // 12 words
+                const mnemonic = window.bip39Module.generateMnemonic(window.wordlist, strength);
+                
+                // Convert mnemonic to seed
+                const seed = window.bip39Module.mnemonicToSeedSync(mnemonic);
+                
+                // Derive master key using EIP-2333
+                const masterKey = await deriveMasterKey(seed);
+                
+                // EIP-2334 path: m/12381/3600/0/0/0 (validator index always 0)
+                const path12381 = await deriveChildKey(bigIntToBytes(masterKey), 12381);
+                const path3600 = await deriveChildKey(bigIntToBytes(path12381), 3600);
+                const withdrawalKey = await deriveChildKey(bigIntToBytes(path3600), 0);
+                const path0 = await deriveChildKey(bigIntToBytes(withdrawalKey), 0);
+                const signingKey = await deriveChildKey(bigIntToBytes(path0), 0);
+                
+                // Generate public keys
+                const signingPrivKeyBytes = bigIntToBytes(signingKey);
+                const signingPubKey = window.bls.getPublicKey(signingPrivKeyBytes);
+                
+                // Display results
+                document.getElementById('seedPhrase').textContent = mnemonic;
+                document.getElementById('validatorPublicKey').textContent = bytesToHex(signingPubKey);
+                document.getElementById('results').classList.remove('hidden');
+                
+            } catch (error) {
+                alert('Error generating keys: ' + error.message);
+                console.error(error);
+            }
+        };
+        
+        // Copy functions
+        async function copySeed() {
+            const mnemonic = document.getElementById('seedPhrase').textContent;
+            if (!mnemonic) {
+                alert('No seed phrase to copy');
+                return;
+            }
+            
+            try {
+                await navigator.clipboard.writeText(mnemonic);
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                alert('Failed to copy: ' + err.message);
+            }
+        }
+        
+        async function copyValidatorKey() {
+            const pubKey = document.getElementById('validatorPublicKey').textContent;
+            if (!pubKey) {
+                alert('No validator public key to copy');
+                return;
+            }
+            
+            try {
+                await navigator.clipboard.writeText(pubKey);
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                alert('Failed to copy: ' + err.message);
+            }
+        }
+        
+        window.copySeed = copySeed;
+        window.copyValidatorKey = copyValidatorKey;
+    </script>
+</body>
+</html>
