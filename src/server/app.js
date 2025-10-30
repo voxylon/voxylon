@@ -33,7 +33,7 @@ app.use(helmet({
 // CORS configuration
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://voxylon.net', 'https://www.voxylon.net']
+    ? ['https://voxylon.com', 'https://www.voxylon.com']
     : true,
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type'],

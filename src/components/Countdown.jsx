@@ -14,7 +14,7 @@ const formatTime = (diff) => {
   const seconds = totalSeconds % 60;
 
   return {
-    label: 'Countdown to validator deadline',
+    label: 'Secure a validator seat',
     segments: [
       { label: 'Days', value: days.toString().padStart(2, '0') },
       { label: 'Hours', value: hours.toString().padStart(2, '0') },

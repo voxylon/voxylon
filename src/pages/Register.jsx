@@ -564,22 +564,6 @@ function Register() {
             variants={heroVariants}
             custom={0}
           >
-            <span
-              className={`inline-flex items-center gap-2 rounded-full border px-4 py-1 text-sm font-medium shadow-[0_12px_30px_rgba(31,116,255,0.2)] ${
-                status.ready
-                  ? 'border-emerald-400/40 bg-emerald-500/15 text-emerald-100'
-                  : 'border-amber-400/40 bg-amber-500/15 text-amber-100'
-              }`}
-            >
-              <span
-                className={`h-2.5 w-2.5 rounded-full ${
-                  status.ready
-                    ? 'bg-emerald-400 shadow-[0_0_18px_rgba(52,211,153,0.8)]'
-                    : 'bg-amber-400 shadow-[0_0_18px_rgba(253,224,71,0.8)]'
-                }`}
-              />
-              {status.message}
-            </span>
             <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">
               Secure your genesis validator seat.
             </h1>
@@ -587,38 +571,6 @@ function Register() {
               Connect an EIP-6963 wallet, sign your BLS validator key, and submit your signature to finalize your Voxylon
               validator registration.
             </p>
-            <div className="grid gap-4 text-sm text-slate-300 sm:grid-cols-2">
-              <div className="flex items-start gap-3 rounded-2xl border border-white/10 bg-slate-950/50 p-4">
-                <div className="mt-1 h-2 w-2 rounded-full bg-voxylon-blue shadow-[0_0_12px_rgba(31,116,255,0.6)]" />
-                <div>
-                  <p className="font-semibold text-white">Fair launch enforcement</p>
-                  <p className="mt-1 text-slate-400">
-                    Every validator begins with identical stake and transparent on-chain rules.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3 rounded-2xl border border-white/10 bg-slate-950/50 p-4">
-                <div className="mt-1 h-2 w-2 rounded-full bg-voxylon-purple shadow-[0_0_12px_rgba(122,60,255,0.6)]" />
-                <div>
-                  <p className="font-semibold text-white">Deterministic tooling</p>
-                  <p className="mt-1 text-slate-400">
-                    Zero premine, zero insiders—just verifiable artifacts and community auditability.
-                  </p>
-                </div>
-              </div>
-            </div>
-            {connectedAddress ? (
-              <div className="flex flex-wrap items-center gap-3 text-sm text-slate-300">
-                <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-white/80">
-                  Connected as {formatAddress(connectedAddress)}
-                </span>
-                {registration && (
-                  <span className="rounded-full border border-emerald-400/40 bg-emerald-500/15 px-3 py-1 text-emerald-100">
-                    Registration on file
-                  </span>
-                )}
-              </div>
-            ) : null}
           </motion.div>
 
           <motion.div
@@ -630,7 +582,7 @@ function Register() {
             custom={1}
           >
             <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-white/10 p-8 shadow-2xl">
-              <p className="text-xs uppercase tracking-[0.35em] text-slate-200">Countdown to validator deadline</p>
+              <p className="text-xs uppercase tracking-[0.35em] text-slate-200">Secure a validator seat</p>
               {countdown.expired ? (
                 <p className="mt-6 text-lg font-semibold text-white">{countdown.formatted}</p>
               ) : (
