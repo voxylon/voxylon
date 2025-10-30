@@ -146,7 +146,7 @@ function Home() {
             variants={heroVariants}
             custom={1}
           >
-            We're inviting more than 60 million verified Ethereum users to become validators and help build a truly community-owned Layer 1 blockchain.
+            We are inviting more than 60 million verified Ethereum users to become validators and help build a truly community-owned Layer 1 blockchain.
           </motion.p>
           <motion.div
             className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row"
