@@ -136,7 +136,17 @@ function Home() {
             variants={heroVariants}
             custom={1}
           >
-            We're inviting more than 60 million qualified Ethereum users to become validators and help build a truly community-owned Layer 1 blockchain.
+            Voxylon unites Bitcoin's resistance to control and Ethereum's programmability with a radically fair and highly decentralized launch.
+          </motion.p>
+          <motion.p
+            className="mt-6 text-lg text-slate-300 sm:text-xl max-w-3xl mx-auto"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+            variants={heroVariants}
+            custom={1}
+          >
+            We're inviting more than 60 million verified Ethereum users to become validators and help build a truly community-owned Layer 1 blockchain.
           </motion.p>
           <motion.div
             className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row"
