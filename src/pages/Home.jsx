@@ -126,7 +126,7 @@ function Home() {
             viewport={{ once: true, amount: 0.4 }}
             variants={heroVariants}
           >
-            The fairest blockchain launch in crypto history
+            The Fairest Blockchain Launch in Crypto History
           </motion.h1>
           <motion.p
             className="mt-6 text-lg text-slate-300 sm:text-xl max-w-3xl mx-auto"
@@ -136,7 +136,7 @@ function Home() {
             variants={heroVariants}
             custom={1}
           >
-            We invite 60+ million eligible Ethereum users to become validators and build a truly community-owned Layer 1 blockchain.
+            We're inviting more than 60 million qualified Ethereum users to become validators and help build a truly community-owned Layer 1 blockchain.
           </motion.p>
           <motion.div
             className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row"
