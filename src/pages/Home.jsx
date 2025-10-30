@@ -19,68 +19,68 @@ const sectionVariants = {
 
 const faqData = [
   {
-    q: 'Can I join using a fresh Ethereum account?',
-    a: 'Yes but your account must have paid at least 0.004 ETH in transaction fees by December 31, 2025 to be included in the genesis.'
+    q: 'Can I join using a new Ethereum account?',
+    a: 'Yes, but your account must have paid at least 0.004 ETH in transaction fees by December 31, 2025, to be included in the genesis block.'
   },
   {
-    q: 'How do I check if I\'m eligible?',
-    a: 'Use an Ethereum block explorer like Etherscan to check your address\'s total gas fees paid. If you\'ve paid ≥0.004 ETH in gas, you qualify.'
+    q: 'How do I check if I’m eligible?',
+    a: 'Use an Ethereum block explorer like Etherscan to view your address’s total gas fees paid. If you’ve paid at least 0.004 ETH in gas, you qualify.'
   },
   {
     q: 'Can I use multiple accounts?',
-    a: 'Yes, if you have multiple eligible Ethereum accounts, each can register separately to become a validator.'
+    a: 'Yes. If you have multiple eligible Ethereum accounts, each one can register separately to become a validator.'
   },
   {
     q: 'What is a validator key?',
-    a: 'A BLS12-381 public key that identifies your validator on the Voxylon network. You generate this using our secure key generator tool.'
+    a: 'A BLS12-381 public key that identifies your validator on the Voxylon network. You can generate this key using our secure key generation tool.'
   },
   {
     q: 'Do I need technical knowledge?',
-    a: 'Basic understanding is helpful. You\'ll need to generate keys and eventually run validator software, but detailed guides will be provided.'
+    a: 'Basic understanding helps. You’ll need to generate keys and later run validator software, but detailed guides will be provided.'
   },
   {
     q: 'What hardware do I need?',
-    a: 'Similar to Ethereum: 4-8GB RAM, SSD storage, and stable internet. Full requirements will be published before mainnet launch.'
+    a: 'Similar to Ethereum: 4–8 GB RAM, SSD storage, and a stable internet connection. Full requirements will be published before the mainnet launch.'
   },
   {
     q: 'Is Voxylon EVM-compatible?',
-    a: 'Yes, Voxylon is fully EVM-compatible. Ethereum smart contracts and tools work without modification.'
+    a: 'Yes. Voxylon is fully EVM-compatible, meaning Ethereum smart contracts and tools work without modification.'
   },
   {
-    q: 'How much VXN will I get?',
-    a: 'Every validator receives exactly 100 VXN at genesis.'
+    q: 'How much VXN will I receive?',
+    a: 'Each validator receives exactly 100 VXN at genesis.'
   },
   {
-    q: 'What about team or VC allocations?',
-    a: 'None. There are no team allocations, no VC investments, and no private sales. Voxylon is 100% community-owned.'
+    q: 'Are there any team or VC allocations?',
+    a: 'No. There are no team allocations, VC investments, or private sales — Voxylon is 100% community-owned.'
   },
   {
     q: 'How does slashing work?',
-    a: 'Similar to Ethereum PoS: validators who behave maliciously or go offline excessively will have their stake reduced.'
+    a: 'Similar to Ethereum’s Proof of Stake. Validators who act maliciously or remain offline for extended periods will have their stake reduced.'
   },
   {
-    q: 'What is the value of DXN?',
-    a: 'The value of DXN will depend on the community. This is a 100% community project.'
+    q: 'What is the value of VXN?',
+    a: 'The value of VXN will be determined entirely by the community. Voxylon is a 100% community-driven project.'
   },
   {
     q: 'Can registrations be audited?',
-    a: 'Yes, after the registration ends, we will publish all the final validator list and the signatures for everyone to verify.'
+    a: 'Yes. After registration closes, we will publish the final validator list and all associated signatures for public verification.'
   },
   {
     q: 'What happens after I register?',
-    a: 'Your registration is stored. Before mainnet launch, you\'ll receive instructions on setting up and running your validator node.'
+    a: 'Your registration will be securely stored. Before mainnet launch, you’ll receive detailed instructions on setting up and running your validator node.'
   },
   {
     q: 'Who controls Voxylon?',
-    a: 'After genesis, the network is controlled entirely by its validators. We are simply organizing the decentralized launch of the chain as volunteers and community members.'
+    a: 'After genesis, the network will be governed entirely by its validators. We’re simply organizing the decentralized launch as volunteers and community members.'
   },
   {
-    q: 'What is the purpose of Voxylon\'s existence?',
-    a: 'Voxylon is a generic smart contract platform anyone can build on. There is no specific pre-defined purpose. It will be the community as a whole and each one as indviduals that will give it purpose as they see fit.'
+    q: 'What is the purpose of Voxylon?',
+    a: 'Voxylon is a general-purpose smart contract platform open to everyone. It has no predefined purpose — its direction and meaning will emerge from the community and individual builders who contribute to it.'
   },
   {
     q: 'Why should I join this project?',
-    a: 'If you have to ask that question, that means it\'s not for you. To someone who sees its value, no convincing would be necessary. To someone who doesn\'t, no convincing is enough.'
+    a: 'If you have to ask, it might not be for you. Those who see its value need no convincing — and those who don’t, no amount of convincing will be enough.'
   }
 ];
 
