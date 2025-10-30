@@ -51,7 +51,7 @@ function Navbar() {
           <span className="relative h-10 w-10 overflow-hidden rounded-xl shadow-[0_12px_28px_rgba(122,60,255,0.35)]">
             <img src={logoMark} alt="Voxylon logomark" className="h-full w-full object-cover" />
           </span>
-          <span className="hidden sm:inline tracking-tight">Voxylon</span>
+          <span className="tracking-tight">Voxylon</span>
         </Link>
         <div className="flex items-center gap-2 sm:gap-3">
           <nav className="hidden items-center gap-1 sm:gap-2 md:flex">
