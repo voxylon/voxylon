@@ -91,6 +91,24 @@ const initialStatus = {
   message: 'Waiting for wallet providers…'
 };
 
+const isMobile = () => {
+  if (typeof window === 'undefined') return false;
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+};
+
+const getMobileWalletDeepLink = (address) => {
+  const dappUrl = encodeURIComponent(window.location.origin);
+  
+  const wallets = [
+    { name: 'MetaMask', url: `https://metamask.app.link/dapp/${window.location.host}${window.location.pathname}`, icon: '🦊' },
+    { name: 'Trust Wallet', url: `https://link.trustwallet.com/open_url?coin_id=60&url=${dappUrl}`, icon: '🛡️' },
+    { name: 'Rainbow', url: `https://rnbwapp.com/`, icon: '🌈' },
+    { name: 'Coinbase Wallet', url: `https://go.cb-w.com/dapp?cb_url=${dappUrl}`, icon: '💼' }
+  ];
+  
+  return wallets;
+};
+
 const VALIDATOR_KEY_PATTERN = /^0x[a-fA-F0-9]{96}$/;
 
 const buildRegistrationMessage = (validatorKey) => `Register Validator: ${validatorKey}`;
@@ -136,6 +154,12 @@ function Register() {
   const [copyToast, setCopyToast] = useState('');
   const [registrationCount, setRegistrationCount] = useState(0);
   const [isLoadingCount, setIsLoadingCount] = useState(true);
+  const [showMobileWallets, setShowMobileWallets] = useState(false);
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
+
+  useEffect(() => {
+    setIsMobileDevice(isMobile());
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -334,6 +358,10 @@ function Register() {
 
   const handleConnectClick = () => {
     resetMessages();
+    if (isMobileDevice && providers.length === 0) {
+      setShowMobileWallets(true);
+      return;
+    }
     if (providers.length === 0) {
       setStatus({
         ready: false,
@@ -346,6 +374,10 @@ function Register() {
     } else {
       setPickerOpen(true);
     }
+  };
+
+  const handleMobileWalletClick = (walletUrl) => {
+    window.location.href = walletUrl;
   };
 
   const handleSelectProvider = async (uuid) => {
@@ -668,7 +700,9 @@ function Register() {
             ) : (
               <div className="mt-6 rounded-2xl border border-dashed border-white/15 bg-slate-950/40 p-6 text-center shadow-inner">
                 <p className="text-sm text-slate-300">
-                  Click below to discover an announced wallet provider and authenticate with your Ethereum account.
+                  {isMobileDevice 
+                    ? 'Connect with a mobile wallet to authenticate with your Ethereum account.'
+                    : 'Click below to discover an announced wallet provider and authenticate with your Ethereum account.'}
                 </p>
                 <button
                   className="mt-5 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-voxylon-blue to-voxylon-purple px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(122,60,255,0.35)] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-voxylon-purple"
@@ -879,6 +913,47 @@ function Register() {
                 ))
               )}
             </div>
+          </div>
+        </div>
+      )}
+
+      {showMobileWallets && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+          <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onClick={() => setShowMobileWallets(false)} />
+          <div className="relative w-full max-w-lg rounded-3xl border border-white/10 bg-slate-900/85 p-6 shadow-2xl">
+            <div className="flex items-center justify-between gap-3">
+              <span className="text-xs uppercase tracking-[0.3em] text-slate-300">Connect Mobile Wallet</span>
+              <button
+                type="button"
+                className="inline-flex items-center justify-center rounded-full border border-white/20 px-3 py-1 text-xs font-medium text-white/70 transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/50"
+                onClick={() => setShowMobileWallets(false)}
+              >
+                Close
+              </button>
+            </div>
+            <p className="mt-4 text-sm text-slate-300">
+              Choose a wallet to open and connect. Make sure you have the wallet app installed on your device.
+            </p>
+            <div className="mt-6 space-y-3">
+              {getMobileWalletDeepLink().map((wallet) => (
+                <button
+                  key={wallet.name}
+                  className="flex w-full items-center gap-4 rounded-2xl border border-white/10 bg-slate-950/60 p-4 text-left text-white transition hover:-translate-y-0.5 hover:border-voxylon-purple/40 hover:bg-slate-950/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-voxylon-purple"
+                  onClick={() => handleMobileWalletClick(wallet.url)}
+                >
+                  <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-slate-900/70 text-2xl">
+                    {wallet.icon}
+                  </span>
+                  <div>
+                    <div className="text-sm font-semibold text-white">{wallet.name}</div>
+                    <div className="text-xs text-slate-400">Tap to open wallet app</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+            <p className="mt-4 text-xs text-slate-400 text-center">
+              After opening your wallet, navigate back to this page to complete registration.
+            </p>
           </div>
         </div>
       )}
