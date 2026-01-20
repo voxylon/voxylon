@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voxylon Litepaper</title>
+  <meta name="description" content="Learn about Voxylon - a radically fair, community-owned Layer 1 blockchain.">
+  
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-container">
+      <a href="/" class="logo">
+        <div class="logo-icon">
+          <img src="/assets/logo.jpg" alt="Voxylon logomark">
+        </div>
+        <span class="tracking-tight">Voxylon</span>
+      </a>
+      <nav class="nav-links">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/litepaper.html" class="nav-link active">Litepaper</a>
+        <a href="/registrations.html" class="nav-link">Registrations</a>
+      </nav>
+      <button class="mobile-menu-btn" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="litepaper-content">
+    <h1>Voxylon Litepaper</h1>
+    
+    <h2>Overview</h2>
+    <p><strong>Voxylon (VXN)</strong> is a community-owned, Ethereum-compatible Proof-of-Stake blockchain, launching with zero premine, no insiders, and no unfair advantages. Voxylon aims to be the fairest Layer 1 blockchain launch in crypto history, leveraging Ethereum's existing user base to bootstrap an entirely decentralized validator set at genesis.</p>
+
+    <h2>Vision</h2>
+    <p>In a landscape dominated by premined tokens, VC-controlled chains, and centralized validator sets, Voxylon offers a radically fair alternative:</p>
+    <ul>
+      <li>No VCs or private sales</li>
+      <li>No team or founder allocation</li>
+      <li>No premined supply</li>
+      <li>100% of the genesis validators are regular Ethereum users who've paid gas fees</li>
+      <li>The organizers retain zero control over the chain post-launch</li>
+    </ul>
+
+    <h2>Consensus & Architecture</h2>
+    <p>Voxylon is built using <strong>Cosmos SDK</strong> and <strong>ABCIPos</strong>, inheriting the battle-tested security and modular architecture of the Cosmos ecosystem. This allows for:</p>
+    <ul>
+      <li>Fast finality (typically 2-3 seconds)</li>
+      <li>Horizontal scalability through app-specific chains</li>
+      <li>Interoperability via IBC (Inter-Blockchain Communication)</li>
+      <li>Proposer-based distribution of sequencing work</li>
+    </ul>
+
+    <h2>Ethereum Compatibility</h2>
+    <p>Through <strong>Ethereum Virtual Machine (EVM) compatibility</strong> via Evmos/Evmos-compatible execution client, Voxylon supports:</p>
+    <ul>
+      <li>Solidity smart contracts</li>
+      <li>MetaMask and other Ethereum wallets</li>
+      <li>Ethereum RPC APIs</li>
+      <li>Hardhat, Foundry, and other development tools</li>
+      <li>Existing Ethereum dApps with minimal changes</li>
+    </ul>
+
+    <h2>Genesis Validator Selection</h2>
+    <p>The key innovation of Voxylon is its fair genesis allocation. To become a genesis validator:</p>
+    <ul>
+      <li>Your Ethereum account must have paid at least <strong>0.004 ETH</strong> in gas fees by December 31, 2025</li>
+      <li>You must generate a BLS12-381 validator key</li>
+      <li>You must sign the validator key with your Ethereum account</li>
+      <li>You must submit your registration before the deadline</li>
+    </ul>
+    <p>This criterion ensures that only real, active Ethereum users can participate, preventing sybil attacks while maintaining true decentralization.</p>
+
+    <h2>Tokenomics</h2>
+    <p><strong>VXN</strong> is the native token of the Voxylon network with the following utilities:</p>
+    <ul>
+      <li><strong>Staking:</strong> Validators stake VXN to secure the network</li>
+      <li><strong>Transaction fees:</strong> Used to pay for gas on the network</li>
+      <li><strong>Governance:</strong> Voting rights for protocol upgrades</li>
+      <li><strong>Slashing:</strong> Penalties for validator misbehavior</li>
+    </ul>
+    <p>At genesis, exactly <strong>100 VXN</strong> will be allocated to each genesis validator's staking pool. There is no presale, no team allocation, and no foundation treasury. The entire supply is distributed to validators based on their participation in the genesis ceremony.</p>
+
+    <h2>Validator Requirements</h2>
+    <p>Hardware requirements are similar to Ethereum validators:</p>
+    <ul>
+      <li>CPU: 4 cores or more</li>
+      <li>RAM: 8 GB (16 GB recommended)</li>
+      <li>Storage: 500 GB SSD (1 TB recommended)</li>
+      <li>Network: 100 Mbps up/down with low latency</li>
+    </ul>
+    <p>Validators are expected to maintain high uptime to maximize rewards and avoid slashing penalties.</p>
+
+    <h2>Slashing Conditions</h2>
+    <p>To maintain network security, validators face slashing penalties for:</p>
+    <ul>
+      <li><strong>Downtime:</strong> Extended periods offline</li>
+      <li><strong>Double signing:</strong> Signing two different blocks at the same height</li>
+      <li><strong>Equivocation:</strong> Sending conflicting messages</li>
+    </ul>
+    <p>Slashing percentages start at 0.01% for minor offenses and can increase for repeated violations.</p>
+
+    <h2>Roadmap</h2>
+    <ul>
+      <li><strong>Q4 2025:</strong> Validator registration opens</li>
+      <li><strong>Q1 2026:</strong> Registration closes, genesis ceremony begins</li>
+      <li><strong>Q2 2026:</strong> Mainnet launch</li>
+      <li><strong>Q3 2026:</strong> Governance module activation</li>
+      <li><strong>Q4 2026:</strong> IBC integration with Cosmos ecosystem</li>
+    </ul>
+
+    <h2>Community & Governance</h2>
+    <p>After genesis, Voxylon is entirely community-owned. Decisions are made through on-chain governance where any validator can propose and vote on changes. The organizers have no special privileges and participate only as regular validators.</p>
+
+    <h2>Security & Audits</h2>
+    <p>Before mainnet launch, Voxylon will undergo:</p>
+    <ul>
+      <li>Third-party security audits</li>
+      <li>Bug bounty program launch</li>
+      <li>Public testnet with incentivized participation</li>
+      <li>Formal verification of critical components</li>
+    </ul>
+
+    <h2>Getting Involved</h2>
+    <p>Join the Voxylon community to participate in the fairest blockchain launch:</p>
+    <ul>
+      <li><strong>Telegram:</strong> t.me/voxylon</li>
+      <li><strong>X (Twitter):</strong> x.com/projectvoxylon</li>
+      <li><strong>GitHub:</strong> github.com/voxylon</li>
+    </ul>
+
+    <div style="margin-top: 3rem; text-align: center;">
+      <a href="/registrations.html" class="btn btn-primary">View Validator Registrations</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p class="footer-text">© 2025 Voxylon. Community owned. Radically fair.</p>
+      <div class="social-links">
+        <a href="https://t.me/voxylon" target="_blank" rel="noreferrer" class="social-link" aria-label="Telegram">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+          </svg>
+        </a>
+        <a href="https://x.com/projectvoxylon" target="_blank" rel="noreferrer" class="social-link" aria-label="X">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <a href="https://github.com/voxylon" target="_blank" rel="noreferrer" class="social-link" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

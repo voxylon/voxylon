@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voxylon — Radically Fair, Radically Decentralized</title>
+  <meta name="description" content="Voxylon is a radically fair, community-owned Layer 1 launching with zero premine and an open validator set.">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Voxylon">
+  <meta property="og:url" content="https://voxylon.com">
+  <meta property="og:title" content="Voxylon — Radically Fair, Radically Decentralized">
+  <meta property="og:description" content="Voxylon is a radically fair, community-owned Layer 1 launching with zero premine and an open validator set.">
+  <meta property="og:image" content="https://voxylon.com/og-image.jpg">
+  <meta property="og:image:width" content="1024">
+  <meta property="og:image:height" content="1024">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Voxylon — Radically Fair, Radically Decentralized">
+  <meta name="twitter:description" content="Voxylon is a radically fair, community-owned Layer 1 launching with zero premine and an open validator set.">
+  <meta name="twitter:image" content="https://voxylon.com/og-image.jpg">
+  
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-container">
+      <a href="/" class="logo">
+        <div class="logo-icon">
+          <img src="/assets/logo.jpg" alt="Voxylon logomark">
+        </div>
+        <span class="tracking-tight">Voxylon</span>
+      </a>
+      <nav class="nav-links">
+        <a href="/" class="nav-link active">Home</a>
+        <a href="/litepaper.html" class="nav-link">Litepaper</a>
+        <a href="/registrations.html" class="nav-link">Registrations</a>
+      </nav>
+      <button class="mobile-menu-btn" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="bg-grid" style="position: absolute; inset: 0; opacity: 0.4;"></div>
+      <div class="bg-radial" style="position: absolute; inset: 0;"></div>
+      <div class="hero-content">
+        <h1>The Fairest Blockchain Launch in Crypto History</h1>
+        <p class="subtitle">Voxylon unites Bitcoin's resistance to control and Ethereum's programmability with a radically fair and highly decentralized launch.</p>
+        <p class="subtitle">We invited more than 60 million verified Ethereum users to become validators and help build a truly community-owned Layer 1 blockchain.</p>
+        <div class="cta-buttons">
+          <a href="/registrations.html" class="btn btn-primary">View Validators</a>
+          <a href="/litepaper.html" class="btn btn-secondary">Read Litepaper</a>
+        </div>
+        <div class="countdown" style="margin-top: 3rem; max-width: 500px; margin-left: auto; margin-right: auto; background: linear-gradient(to bottom right, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05), rgba(239, 68, 68, 0.1)); border-color: rgba(239, 68, 68, 0.3);">
+          <p class="countdown-label" style="color: #fca5a5;">Registration Closed</p>
+          <p style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.875rem;">The registration period ended on December 31, 2025 at 23:59 UTC.</p>
+          <p style="margin-top: 0.5rem; color: #6ee7b7; font-size: 0.875px;">All registrations have been audited and published below.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Validator Registration Complete</h2>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; max-width: 800px; margin: 0 auto;">
+          <div class="card" style="text-align: center;">
+            <p style="font-size: 2.5rem; font-weight: 700; color: #6ee7b7;" id="valid-count">Loading...</p>
+            <p style="color: var(--text-secondary); margin-top: 0.5rem;">Valid Registrations</p>
+          </div>
+          <div class="card" style="text-align: center;">
+            <p style="font-size: 2.5rem; font-weight: 700; color: #fca5a5;" id="invalid-count">Loading...</p>
+            <p style="color: var(--text-secondary); margin-top: 0.5rem;">Invalid Registrations</p>
+          </div>
+          <div class="card" style="text-align: center;">
+            <p style="font-size: 2.5rem; font-weight: 700; color: var(--text-primary);" id="total-count">Loading...</p>
+            <p style="color: var(--text-secondary); margin-top: 0.5rem;">Total Submissions</p>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 2rem;">
+          <a href="/registrations.html" class="btn btn-primary">View Full Registration List</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>What is Voxylon?</h2>
+        </div>
+        <div class="features-grid">
+          <div class="card">
+            <h3>A community-owned blockchain</h3>
+            <p>Voxylon is an Ethereum-compatible Proof-of-Stake Layer 1 blockchain launching with all the initial supply staked to genesis validators.</p>
+          </div>
+          <div class="card">
+            <h3>Radically fair</h3>
+            <p>Unlike typical crypto launches dominated by VCs and insiders, Voxylon bootstrapped from Ethereum's existing user base. Only accounts that paid at least 0.004 ETH in gas fees by December 31, 2025 could become genesis validators.</p>
+          </div>
+          <div class="card">
+            <h3>Open validator set</h3>
+            <p>Anyone who met the eligibility criteria could register. The registration list is fully transparent and auditable by anyone.</p>
+          </div>
+          <div class="card">
+            <h3>EVM-compatible</h3>
+            <p>Voxylon is fully compatible with Ethereum tooling, smart contracts, and infrastructure. Developers can deploy existing Ethereum applications without modification.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: rgba(15, 23, 42, 0.3);">
+      <div class="container">
+        <div class="section-header">
+          <h2>Frequently Asked Questions</h2>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question">
+              What happens now that registration is closed?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              The Voxylon team is now verifying all valid registrations and preparing for the genesis ceremony. Validators will receive instructions on setting up their nodes before mainnet launch.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              Why were some registrations marked invalid?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Registrations were invalid if: the Ethereum account hadn't paid at least 0.004 ETH in gas fees, the signature was invalid, the validator key format was incorrect, or the registration was submitted after the deadline.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              Can I check my registration status?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Yes. Visit the <a href="/registrations.html" style="color: var(--accent-blue);">Registrations page</a> and search for your Ethereum address to see if your registration was valid or invalid.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              What is a validator key?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              A BLS12-381 public key that identifies your validator on the Voxylon network. You can generate this key using our key generation tool.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              How much VXN will I receive?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Each validator with a valid registration receives exactly 100 VXN at genesis.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              Are there any team or VC allocations?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              No. There are no team allocations, VC investments, or private sales — Voxylon is 100% community-owned.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              Can registrations be audited?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Yes. All registrations are published on GitHub and can be independently verified by anyone.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              Who controls Voxylon?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              After genesis, the network will be governed entirely by its validators. The organizers retain zero control over the chain post-launch.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p class="footer-text">© 2025 Voxylon. Community owned. Radically fair.</p>
+      <div class="social-links">
+        <a href="https://t.me/voxylon" target="_blank" rel="noreferrer" class="social-link" aria-label="Telegram">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+          </svg>
+        </a>
+        <a href="https://x.com/projectvoxylon" target="_blank" rel="noreferrer" class="social-link" aria-label="X">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <a href="https://github.com/voxylon" target="_blank" rel="noreferrer" class="social-link" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script>
+    async function loadRegistrationStats() {
+      try {
+        const validResponse = await fetch('https://raw.githubusercontent.com/voxylon/registrations/main/valid.txt');
+        const invalidResponse = await fetch('https://raw.githubusercontent.com/voxylon/registrations/main/invalid.txt');
+        
+        const validText = await validResponse.text();
+        const invalidText = await invalidResponse.text();
+        
+        const validCount = validText.split('\n').filter(line => line.startsWith('0x')).length;
+        const invalidCount = invalidText.split('\n').filter(line => line.startsWith('0x')).length;
+        
+        document.getElementById('valid-count').textContent = validCount.toLocaleString();
+        document.getElementById('invalid-count').textContent = invalidCount.toLocaleString();
+        document.getElementById('total-count').textContent = (validCount + invalidCount).toLocaleString();
+      } catch (error) {
+        console.error('Error loading registration stats:', error);
+        document.getElementById('valid-count').textContent = '---';
+        document.getElementById('invalid-count').textContent = '---';
+        document.getElementById('total-count').textContent = '---';
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', loadRegistrationStats);
+  </script>
+</body>
+</html>

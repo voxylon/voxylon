@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validator Registrations - Voxylon</title>
+  <meta name="description" content="View all Voxylon validator registrations. Transparent and auditable by anyone.">
+  
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .registrations-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem 4rem;
+    }
+    .page-title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+    .page-subtitle {
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: linear-gradient(to bottom right, rgba(255,255,255,0.1), rgba(255,255,255,0.05), rgba(255,255,255,0.1));
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    .stat-value.valid { color: #6ee7b7; }
+    .stat-value.invalid { color: #fca5a5; }
+    .stat-value.total { color: var(--text-primary); }
+    .stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+    .search-box {
+      max-width: 500px;
+      margin: 0 auto 2rem;
+    }
+    .search-input {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      background: rgba(5, 8, 22, 0.6);
+      border: 1px solid var(--border-color);
+      border-radius: 9999px;
+      color: var(--text-primary);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-input:focus {
+      border-color: var(--accent-purple);
+    }
+    .search-input::placeholder {
+      color: var(--text-muted);
+    }
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .filter-tab {
+      padding: 0.5rem 1.5rem;
+      border-radius: 9999px;
+      border: 1px solid var(--border-color);
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-tab:hover {
+      border-color: var(--accent-purple);
+      color: var(--text-primary);
+    }
+    .filter-tab.active {
+      background: rgba(124, 58, 237, 0.2);
+      border-color: var(--accent-purple);
+      color: var(--text-primary);
+    }
+    .registrations-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+    .registrations-table th {
+      text-align: left;
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.75rem;
+    }
+    .registrations-table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-secondary);
+    }
+    .registrations-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .address-cell {
+      font-family: monospace;
+      word-break: break-all;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    .status-badge.valid {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #6ee7b7;
+    }
+    .status-badge.invalid {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+    }
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+    .status-dot.valid { background: #6ee7b7; }
+    .status-dot.invalid { background: #fca5a5; }
+    .view-btn {
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      border: 1px solid var(--border-color);
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .view-btn:hover {
+      border-color: var(--accent-purple);
+      color: var(--text-primary);
+    }
+    .table-container {
+      overflow-x: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      background: rgba(5, 8, 22, 0.3);
+    }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+    .page-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      border: 1px solid var(--border-color);
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .page-btn:hover:not(:disabled) {
+      border-color: var(--accent-purple);
+      color: var(--text-primary);
+    }
+    .page-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .page-btn.active {
+      background: rgba(124, 58, 237, 0.2);
+      border-color: var(--accent-purple);
+      color: var(--text-primary);
+    }
+    .page-info {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+    .loading {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-secondary);
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border-color);
+      border-top-color: var(--accent-purple);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .result-count {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-container">
+      <a href="/" class="logo">
+        <div class="logo-icon">
+          <img src="/assets/logo.jpg" alt="Voxylon logomark">
+        </div>
+        <span class="tracking-tight">Voxylon</span>
+      </a>
+      <nav class="nav-links">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/litepaper.html" class="nav-link">Litepaper</a>
+        <a href="/registrations.html" class="nav-link active">Registrations</a>
+      </nav>
+      <button class="mobile-menu-btn" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="registrations-content">
+    <h1 class="page-title">Validator Registrations</h1>
+    <p class="page-subtitle">All registrations are transparent and auditable. Data sourced from <a href="https://github.com/voxylon/registrations" target="_blank" style="color: var(--accent-purple);">github.com/voxylon/registrations</a></p>
+    
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value total" id="total-count">---</div>
+        <div class="stat-label">Total Submissions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value valid" id="valid-count">---</div>
+        <div class="stat-label">Valid</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value invalid" id="invalid-count">---</div>
+        <div class="stat-label">Invalid</div>
+      </div>
+    </div>
+    
+    <div class="search-box">
+      <input type="text" class="search-input" id="search-input" placeholder="Search by Ethereum address (e.g., 0x41789B93...)">
+    </div>
+    
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-filter="all">All</button>
+      <button class="filter-tab" data-filter="valid">Valid</button>
+      <button class="filter-tab" data-filter="invalid">Invalid</button>
+    </div>
+    
+    <div id="loading" class="loading">
+      <div class="spinner"></div>
+      <p>Loading registrations data...</p>
+    </div>
+    
+    <div id="results-container" class="hidden">
+      <p class="result-count" id="result-count"></p>
+      <div class="table-container">
+        <table class="registrations-table">
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Ethereum Address</th>
+              <th>Validator Key</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="registrations-body">
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </main>
+
+  <!-- Detail Modal -->
+  <div class="modal-overlay hidden" id="detail-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Registration Details</h3>
+        <button class="close-btn" onclick="closeModal()">Close</button>
+      </div>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p class="footer-text">© 2025 Voxylon. Community owned. Radically fair.</p>
+      <div class="social-links">
+        <a href="https://t.me/voxylon" target="_blank" rel="noreferrer" class="social-link" aria-label="Telegram">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+          </svg>
+        </a>
+        <a href="https://x.com/projectvoxylon" target="_blank" rel="noreferrer" class="social-link" aria-label="X">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <a href="https://github.com/voxylon" target="_blank" rel="noreferrer" class="social-link" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let validRegistrations = [];
+    let invalidRegistrations = [];
+    let allRegistrations = [];
+    let currentFilter = 'all';
+    let currentPage = 1;
+    const itemsPerPage = 50;
+    let searchQuery = '';
+
+    async function loadRegistrations() {
+      try {
+        const [validResponse, invalidResponse] = await Promise.all([
+          fetch('https://raw.githubusercontent.com/voxylon/registrations/main/valid.txt'),
+          fetch('https://raw.githubusercontent.com/voxylon/registrations/main/invalid.txt')
+        ]);
+        
+        const validText = await validResponse.text();
+        const invalidText = await invalidResponse.text();
+        
+        validRegistrations = parseCSV(validText, 'valid');
+        invalidRegistrations = parseCSV(invalidText, 'invalid');
+        
+        allRegistrations = [...validRegistrations, ...invalidRegistrations];
+        
+        document.getElementById('total-count').textContent = allRegistrations.length.toLocaleString();
+        document.getElementById('valid-count').textContent = validRegistrations.length.toLocaleString();
+        document.getElementById('invalid-count').textContent = invalidRegistrations.length.toLocaleString();
+        
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('results-container').classList.remove('hidden');
+        
+        renderRegistrations();
+      } catch (error) {
+        console.error('Error loading registrations:', error);
+        document.getElementById('loading').innerHTML = '<p style="color: #fca5a5;">Error loading data. Please try again later.</p>';
+      }
+    }
+
+    function parseCSV(text, status) {
+      const lines = text.trim().split('\n');
+      const headers = lines[0].split(',');
+      const result = [];
+      
+      for (let i = 1; i < lines.length; i++) {
+        const values = lines[i].split(',');
+        if (values.length >= 3) {
+          result.push({
+            status: status,
+            address: values[0].trim(),
+            validator_key: values[1].trim(),
+            signature: values[2].trim()
+          });
+        }
+      }
+      return result;
+    }
+
+    function getFilteredRegistrations() {
+      let filtered = allRegistrations;
+      
+      if (currentFilter !== 'all') {
+        filtered = filtered.filter(r => r.status === currentFilter);
+      }
+      
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        filtered = filtered.filter(r => 
+          r.address.toLowerCase().includes(query) ||
+          r.validator_key.toLowerCase().includes(query)
+        );
+      }
+      
+      return filtered;
+    }
+
+    function renderRegistrations() {
+      const filtered = getFilteredRegistrations();
+      const totalPages = Math.ceil(filtered.length / itemsPerPage);
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      const pageItems = filtered.slice(start, end);
+      
+      document.getElementById('result-count').textContent = `Showing ${filtered.length} registration${filtered.length !== 1 ? 's' : ''}`;
+      
+      const tbody = document.getElementById('registrations-body');
+      tbody.innerHTML = pageItems.map((reg, index) => `
+        <tr>
+          <td>
+            <span class="status-badge ${reg.status}">
+              <span class="status-dot ${reg.status}"></span>
+              ${reg.status === 'valid' ? 'Valid' : 'Invalid'}
+            </span>
+          </td>
+          <td class="address-cell">${formatAddress(reg.address)}</td>
+          <td class="address-cell">${formatAddress(reg.validator_key)}</td>
+          <td>
+            <button class="view-btn" onclick="showDetail(${start + index})">View</button>
+          </td>
+        </tr>
+      `).join('');
+      
+      renderPagination(totalPages);
+    }
+
+    function renderPagination(totalPages) {
+      const pagination = document.getElementById('pagination');
+      
+      if (totalPages <= 1) {
+        pagination.innerHTML = '';
+        return;
+      }
+      
+      let html = `
+        <button class="page-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>Prev</button>
+      `;
+      
+      for (let i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+          html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+        } else if (i === currentPage - 3 || i === currentPage + 3) {
+          html += `<span class="page-info">...</span>`;
+        }
+      }
+      
+      html += `
+        <button class="page-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>
+      `;
+      
+      pagination.innerHTML = html;
+    }
+
+    function changePage(page) {
+      currentPage = page;
+      renderRegistrations();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function formatAddress(addr) {
+      if (addr.length <= 20) return addr;
+      return addr.substring(0, 10) + '...' + addr.substring(addr.length - 8);
+    }
+
+    function showDetail(index) {
+      const filtered = getFilteredRegistrations();
+      const reg = filtered[index];
+      
+      const modal = document.getElementById('detail-modal');
+      const content = document.getElementById('modal-content');
+      
+      content.innerHTML = `
+        <div style="margin-bottom: 1.5rem;">
+          <span class="status-badge ${reg.status}">
+            <span class="status-dot ${reg.status}"></span>
+            ${reg.status === 'valid' ? 'Valid Registration' : 'Invalid Registration'}
+          </span>
+        </div>
+        
+        <div class="reg-details">
+          <div class="reg-detail-row">
+            <span class="reg-detail-label">Ethereum Address</span>
+            <div>
+              <span class="reg-detail-value">${reg.address}</span>
+              <button class="copy-btn" onclick="copyToClipboard('${reg.address}', 'Address')">Copy</button>
+            </div>
+          </div>
+          <div class="reg-detail-row">
+            <span class="reg-detail-label">Validator Key</span>
+            <div>
+              <span class="reg-detail-value">${reg.validator_key}</span>
+              <button class="copy-btn" onclick="copyToClipboard('${reg.validator_key}', 'Validator key')">Copy</button>
+            </div>
+          </div>
+          <div class="reg-detail-row">
+            <span class="reg-detail-label">Signature</span>
+            <div>
+              <span class="reg-detail-value">${reg.signature}</span>
+              <button class="copy-btn" onclick="copyToClipboard('${reg.signature}', 'Signature')">Copy</button>
+            </div>
+          </div>
+        </div>
+        
+        <div style="margin-top: 1.5rem;">
+          <a href="https://etherscan.io/address/${reg.address}" target="_blank" class="btn btn-secondary" style="width: 100%;">View on Etherscan</a>
+        </div>
+      `;
+      
+      modal.classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('detail-modal').classList.add('hidden');
+    }
+
+    function copyToClipboard(text, label) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert(`${label} copied to clipboard!`);
+      });
+    }
+
+    // Event Listeners
+    document.getElementById('search-input').addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      currentPage = 1;
+      renderRegistrations();
+    });
+
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentFilter = tab.dataset.filter;
+        currentPage = 1;
+        renderRegistrations();
+      });
+    });
+
+    document.getElementById('detail-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'detail-modal') {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    document.addEventListener('DOMContentLoaded', loadRegistrations);
+  </script>
+</body>
+</html>
