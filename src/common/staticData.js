@@ -1,0 +1,15 @@
+const STATIC_REGISTRATION_COUNT = 0;
+
+const STATIC_REGISTRATIONS = [];
+
+const STATIC_VALIDATOR_KEYS = new Set();
+
+STATIC_REGISTRATIONS.forEach(reg => {
+  STATIC_VALIDATOR_KEYS.add(reg.validator_key.toLowerCase());
+});
+
+module.exports = {
+  STATIC_REGISTRATION_COUNT,
+  STATIC_REGISTRATIONS,
+  STATIC_VALIDATOR_KEYS
+};

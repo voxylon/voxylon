@@ -156,12 +156,11 @@ function Home() {
             variants={heroVariants}
             custom={2}
           >
-            <Link
-              to="/register"
-              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-voxylon-blue to-voxylon-purple px-8 py-3 text-base font-semibold text-white shadow-[0_18px_40px_rgba(122,60,255,0.35)] transition-transform hover:-translate-y-0.5"
+            <span
+              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-voxylon-blue to-voxylon-purple px-8 py-3 text-base font-semibold text-white shadow-[0_18px_40px_rgba(122,60,255,0.35)]"
             >
-              Register as Validator
-            </Link>
+              Registration Closed
+            </span>
             <Link
               to="/litepaper"
               className="inline-flex items-center justify-center rounded-full border border-white/20 px-8 py-3 text-base font-semibold text-white/80 transition hover:bg-white/10"
@@ -311,7 +310,7 @@ function Home() {
             variants={heroVariants}
             custom={1}
           >
-            Join the fairest blockchain launch ever. Register before December 31, 2025.
+            Registration is now closed. Thank you to all who registered as genesis validators.
           </motion.p>
           <motion.div
             className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row"
@@ -322,10 +321,10 @@ function Home() {
             custom={2}
           >
             <Link
-              to="/register"
+              to="/litepaper"
               className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-voxylon-blue to-voxylon-purple px-8 py-3 text-base font-semibold text-white shadow-[0_20px_50px_rgba(122,60,255,0.35)] transition hover:-translate-y-0.5"
             >
-              Register Now
+              Read Litepaper
             </Link>
           </motion.div>
         </div>

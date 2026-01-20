@@ -123,7 +123,8 @@ const ERROR_MESSAGES = {
   SIGNATURE_REQUIRED: 'Sign the validator key before submitting.',
   SIGNATURE_INVALID: 'Signature validation failed.',
   REGISTRATION_FAILED: 'Registration failed.',
-  COPY_FAILED: 'Unable to copy to clipboard.'
+  COPY_FAILED: 'Unable to copy to clipboard.',
+  REGISTRATION_CLOSED: 'Registration is closed. The registration period has ended.'
 };
 
 const normalizeAddress = (address) => {
@@ -813,26 +814,18 @@ function Register() {
                 )}
 
                 {!registration && (
-                  <form
-                    className="rounded-2xl border border-white/10 bg-slate-950/60 p-6 shadow-inner"
-                    onSubmit={(event) => {
-                      event.preventDefault();
-                      handleSign();
-                    }}
-                  >
+                  <div className="rounded-2xl border border-dashed border-white/15 bg-slate-950/50 p-6 text-sm text-slate-300 shadow-inner">
+                    Registration period has ended. No new validator registrations are being accepted.
+                  </div>
+                )}
+
+                {!registration && (
+                  <div className="rounded-2xl border border-white/10 bg-slate-950/60 p-6 shadow-inner">
                     <div>
                       <div className="flex items-center justify-between gap-3">
                         <label htmlFor="validatorKey" className="text-sm font-medium text-slate-200">
                           Validator public key
                         </label>
-                        <a
-                          href="/keygen.html"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center rounded-full border border-white/20 px-4 py-1.5 text-xs font-medium text-white/80 transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-voxylon-purple/60"
-                        >
-                          Get Key
-                        </a>
                       </div>
                       <input
                         id="validatorKey"
@@ -841,7 +834,7 @@ function Register() {
                         onChange={(event) => setValidatorKey(event.target.value.trim())}
                         placeholder="0x..."
                         className="mt-2 w-full rounded-xl border border-white/10 bg-slate-950/60 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:border-voxylon-blue focus:outline-none focus:ring-1 focus:ring-voxylon-blue/70 disabled:cursor-not-allowed disabled:opacity-60"
-                        disabled={countdown.expired || isSigning || isSubmitting}
+                        disabled={true}
                         autoComplete="off"
                         spellCheck={false}
                       />
@@ -852,17 +845,14 @@ function Register() {
 
                     <div className="mt-6 flex flex-wrap items-center gap-3">
                       <button
-                        type="submit"
+                        type="button"
                         className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-voxylon-blue to-voxylon-purple px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(122,60,255,0.35)] transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-voxylon-purple disabled:cursor-not-allowed disabled:opacity-60"
-                        disabled={countdown.expired || isSigning}
+                        disabled={true}
                       >
-                        {isSigning ? 'Awaiting signature…' : 'Sign validator key'}
+                        Registration Closed
                       </button>
-                      {countdown.expired && (
-                        <span className="text-xs text-rose-200">Registration deadline has passed.</span>
-                      )}
                     </div>
-                  </form>
+                  </div>
                 )}
               </div>
             ) : (

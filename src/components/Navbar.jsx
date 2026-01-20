@@ -5,8 +5,7 @@ import logoMark from '../assets/logo.jpg';
 
 const navLinks = [
   { name: 'Home', to: '/' },
-  { name: 'Litepaper', to: '/litepaper' },
-  { name: 'Register', to: '/register' }
+  { name: 'Litepaper', to: '/litepaper' }
 ];
 
 function Navbar() {
